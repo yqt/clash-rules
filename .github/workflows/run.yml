@@ -29,6 +29,7 @@ jobs:
           echo "cn_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/cn.txt" >> $GITHUB_ENV
           echo "lan_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/private.txt" >> $GITHUB_ENV
           echo "telegram_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt" >> $GITHUB_ENV
+          echo "applications=https://raw.githubusercontent.com/Loyalsoldier/clash-rules/hidden/applications.txt" >> $GITHUB_ENV
         shell: bash
 
       - name: Checkout the "vc" branch
@@ -103,6 +104,9 @@ jobs:
         run: |
           echo "payload:" > lancidr.txt
           curl -sSL ${lan_cidr} | perl -ne '/(.+\/\d+)/ && print "  - |$1|\n"' | sed "s/|/'/g" >> lancidr.txt
+          
+      - name: Generate applications.txt file
+        run: curl -sSL ${applications} -o applications.txt
 
       - name: Move files to publish directory
         run: |
