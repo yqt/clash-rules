@@ -31,10 +31,10 @@ jobs:
           echo "telegram_cidr=https://raw.githubusercontent.com/Loyalsoldier/geoip/release/text/telegram.txt" >> $GITHUB_ENV
         shell: bash
 
-      - name: Checkout the "hidden" branch
+      - name: Checkout the "vc" branch
         uses: actions/checkout@v2
         with:
-          ref: hidden
+          ref: vc
 
       - name: Generate icloud.txt file
         run: |
@@ -108,6 +108,7 @@ jobs:
         run: |
           mkdir -p publish
           cp *.txt ./publish/
+          cp vercel.json ./publish/
 
       - name: Release and upload assets
         uses: softprops/action-gh-release@v0.1.6
